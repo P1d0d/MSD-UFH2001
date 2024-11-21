@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Care Guide App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            max-width: 480px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div id="app" class="flex flex-col h-full">
+        <!-- Content Area -->
+        <div id="content" class="flex-1 overflow-auto p-4">
+            <!-- Home Screen -->
+            <div id="home-screen">
+                <div class="bg-white rounded-lg shadow-md mb-4">
+                    <div class="p-4">
+                        <h1 class="text-2xl font-bold text-green-700 mb-4">Welcome to PlantCare</h1>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="bg-green-100 p-4 rounded-lg text-center hover:bg-green-200 transition">
+                                <i class="fas fa-leaf text-3xl text-green-600 mb-2"></i>
+                                <h3 class="font-medium">My Plants</h3>
+                            </div>
+                            <div class="bg-blue-100 p-4 rounded-lg text-center hover:bg-blue-200 transition">
+                                <i class="far fa-calendar text-3xl text-blue-600 mb-2"></i>
+                                <h3 class="font-medium">Care Calendar</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Tasks -->
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="p-4">
+                        <h2 class="text-xl font-semibold mb-3">Upcoming Tasks</h2>
+                        <div class="space-y-2">
+                            <div class="bg-gray-50 p-3 rounded-md flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-medium">Snake Plant</h3>
+                                    <p class="text-sm text-gray-600">Water plant</p>
+                                </div>
+                                <span class="text-sm text-gray-500">2024-11-20</span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-md flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-medium">Monstera</h3>
+                                    <p class="text-sm text-gray-600">Fertilize</p>
+                                </div>
+                                <span class="text-sm text-gray-500">2024-11-22</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plants Screen (Hidden by Default) -->
+            <div id="plants-screen" class="hidden">
+                <div class="mb-4">
+                    <div class="relative">
+                        <input 
+                            type="search" 
+                            placeholder="Search plants..." 
+                            class="w-full p-2 pl-10 border rounded-lg bg-white"
+                        >
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Plant Cards -->
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-4 flex items-center">
+                            <img 
+                                src="https://via.placeholder.com/120" 
+                                alt="Snake Plant" 
+                                class="w-24 h-24 rounded-lg object-cover mr-4"
+                            >
+                            <div>
+                                <h3 class="font-semibold text-lg">Snake Plant</h3>
+                                <p class="text-sm text-gray-600 italic mb-2">Sansevieria trifasciata</p>
+                                <div class="text-sm">
+                                    <p>Difficulty: Easy</p>
+                                    <p>Water: Every 2-3 weeks</p>
+                                    <p>Light: Low to bright indirect</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-4 flex items-center">
+                            <img 
+                                src="https://via.placeholder.com/120" 
+                                alt="Monstera" 
+                                class="w-24 h-24 rounded-lg object-cover mr-4"
+                            >
+                            <div>
+                                <h3 class="font-semibold text-lg">Monstera</h3>
+                                <p class="text-sm text-gray-600 italic mb-2">Monstera deliciosa</p>
+                                <div class="text-sm">
+                                    <p>Difficulty: Moderate</p>
+                                    <p>Water: Weekly</p>
+                                    <p>Light: Bright indirect</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bg-white border-t">
+            <div class="grid grid-cols-5 text-center">
+                <button onclick="showScreen('home')" class="p-2 text-green-600">
+                    <i class="fas fa-home text-xl"></i>
+                    <p class="text-xs">Home</p>
+                </button>
+                <button onclick="showScreen('plants')" class="p-2 text-gray-600">
+                    <i class="fas fa-leaf text-xl"></i>
+                    <p class="text-xs">Plants</p>
+                </button>
+                <button class="p-2 text-gray-600">
+                    <i class="far fa-calendar text-xl"></i>
+                    <p class="text-xs">Calendar</p>
+                </button>
+                <button class="p-2 text-gray-600">
+                    <i class="fas fa-camera text-xl"></i>
+                    <p class="text-xs">Camera</p>
+                </button>
+                <button class="p-2 text-gray-600">
+                    <i class="fas fa-book-open text-xl"></i>
+                    <p class="text-xs">Guide</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screenName) {
+            // Reset all navigation buttons
+            const navButtons = document.querySelectorAll('button');
+            navButtons.forEach(button => {
+                button.classList.remove('text-green-600');
+                button.classList.add('text-gray-600');
+            });
+
+            // Show the selected screen
+            if (screenName === 'home') {
+                document.getElementById('home-screen').classList.remove('hidden');
+                document.getElementById('plants-screen').classList.add('hidden');
+                document.querySelector('button:first-child').classList.remove('text-gray-600');
+                document.querySelector('button:first-child').classList.add('text-green-600');
+            } else if (screenName === 'plants') {
+                document.getElementById('home-screen').classList.add('hidden');
+                document.getElementById('plants-screen').classList.remove('hidden');
+                document.querySelector('button:nth-child(2)').classList.remove('text-gray-600');
+                document.querySelector('button:nth-child(2)').classList.add('text-green-600');
+            }
+        }
+    </script>
+</body>
+</html>
